@@ -49,16 +49,11 @@ Vamos a analizar que país es el que más exporta motocicletas hacia Guatemala.
 ```{r}
 freqPais <- as.data.frame(table(motos$Pais.de.Proveniencia))
  freqPais<- freqPais[order(freqPais$Freq, decreasing = TRUE),]
-
  
- coul <- brewer.pal(5, "Set2") 
- 
+freqPais <- as.data.frame(head(freqPais,10))
 
-freqPais <- head(freqPais,10)
-ggplot(freqPais, aes(x=Var1, y=Freq)) + 
-  geom_bar(stat = "identity") +
-  +labs(title= "Países con mayor cantidad de importaciones al país")
-   scale_fill_brewer(palette = "Set2") +  coord_flip()
+ggplot(freqPais, aes(x=Var1, y=Freq)) +
+  geom_bar(stat = "identity") +  coord_flip() + xlab("País de origen")+ ylab("Frecuencia")+ scale_fill_grey()
 
 
 ```
@@ -74,11 +69,33 @@ freqAnio <- as.data.frame(table(motos$Anio))
  
  
 
-ggplot(freqAnio, aes(x=Var1, y=Freq)) + geom_bar(stat = "identity") 
+ggplot(freqAnio, aes(x=Var1, y=Freq)) + geom_bar(stat = "identity") + xlab("Año de importación")+ ylab("Frecuencia")
 
 
 ```
 Se tiene que el año en el que se tuvo mayor cantidad general de registros así el del 2018, seguido para el del 2017. 
+
+También consideramos importante ver cuál es la marca que predomina en las importaciones.
+```{r}
+freqMarca <- as.data.frame(table(motos$Marca))
+ freqMarca<- freqMarca[order(freqMarca$Freq, decreasing = TRUE),]
+freqMarca <- head(freqMarca,10)
+
+ggplot(freqMarca, aes(x=Var1, y=Freq)) + geom_bar(stat = "identity") +  coord_flip()+ xlab("Marca")+ ylab("Frecuencia")
+
+
+```
+Dado que es una gran cantidad de marcas, solo analizamos las 10 que poseen mayor cantidad. Observamos que las marcas que predominan son Honda y Suzuki. Ahora, vamos a explorar las marcas que tienen menor cantidad de importaciones. 
+```{r}
+
+ freqMarca<- freqMarca[order(freqMarca$Freq, decreasing = FALSE),]
+freqMarca <- head(freqMarca,20)
+
+ggplot(freqMarca, aes(x=Var1, y=Freq)) + geom_bar(stat = "identity") +  coord_flip()+ xlab("Marca")+ ylab("Frecuencia")
+
+
+```
+Vemos que hay marcas que poseen una sola importación. Tiene sentido lo que encontramos, dado que estas marcas casi nunca se ven en el tránsito en Guatemala. 
 
 
 ## Análisis de variables cuantitativas.
@@ -93,5 +110,8 @@ corrplot(M, method = "color")
 ```
 
 Se nota que las variables Valor CIF Y el impuesto están altamente correlacionadas. Otro hecho importante es que no sen encuentra una anticorrelación entre ninguna de las variables. 
+```{r}
 
+
+```
 
