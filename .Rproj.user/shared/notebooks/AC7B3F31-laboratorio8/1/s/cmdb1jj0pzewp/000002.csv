@@ -1,8 +1,0 @@
-"0",""
-"0"," freqMarca<- freqMarca[order(freqMarca$Freq, decreasing = FALSE),]"
-"0","freqMarca <- head(freqMarca,20)"
-"0",""
-"0","ggplot(freqMarca, aes(x=Var1, y=Freq, fill=Var1)) + geom_bar(stat = ""identity"") +  "
-"0","  coord_flip()+ xlab(""Marca"")+ ylab(""Frecuencia"") +"
-"0","  theme(legend.position = ""top"") +"
-"0","  theme(legend.position = ""none"")"

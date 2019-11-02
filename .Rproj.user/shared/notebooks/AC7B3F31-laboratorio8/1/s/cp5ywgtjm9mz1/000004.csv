@@ -1,8 +1,0 @@
-"0",""
-"0","motoN <- motos[,c(5,16,17)]"
-"0","motoN$Modelo.del.Vehiculo <- as.numeric(as.character(motoN$Modelo.del.Vehiculo))"
-"0","motoN$Valor.CIF <- as.numeric(as.character(motoN$Valor.CIF))"
-"0","motoN$Impuesto <- as.numeric(as.character(motoN$Impuesto))"
-"0","M <- cor(motoN)"
-"0","corrplot(M, method = ""color"")"
-"0",""

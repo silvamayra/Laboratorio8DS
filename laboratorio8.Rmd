@@ -122,9 +122,6 @@ Se procedió con realizar una partición del dataset con contuviera las variable
 ```{r}
 
 motoN <- motos[,c(5,16,17)]
-motoN$Modelo.del.Vehiculo <- as.numeric(as.character(motoN$Modelo.del.Vehiculo))
-motoN$Valor.CIF <- as.numeric(as.character(motoN$Valor.CIF))
-motoN$Impuesto <- as.numeric(as.character(motoN$Impuesto))
 M <- cor(motoN)
 corrplot(M, method = "color")
 
@@ -132,6 +129,7 @@ corrplot(M, method = "color")
 
 Se nota que las variables Valor CIF Y el impuesto están altamente correlacionadas. Otro hecho importante es que no sen encuentra una anticorrelación entre ninguna de las variables. 
 ```{r}
+
 
 ```
 
