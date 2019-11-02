@@ -19,6 +19,12 @@ library(stringr)
 library(corrplot)
 library(ggplot2)
 library(RColorBrewer) #Para colorcitos de graficas 
+library(wesanderson)
+
+theme_set(
+  theme_minimal() +
+    theme(legend.position = "right")
+  )
 ```
 
 
@@ -27,7 +33,8 @@ Para este apartado, se descargaron los archivos directamente de internet y se co
 
 ```{r}
 #C:/Users/Home/Documents/Tercer año/Sexto Semestre/Data Science/Laboratorio8DS
-setwd("C:/Users/Home/Documents/Tercer año/Sexto Semestre/Data Science/Laboratorio8DS")
+#/Users/odalisrg/Downloads/datos
+setwd("/Users/odalisrg/Downloads/datos")
 dataset <- read.csv("importacionesVehiculosSAT.csv",TRUE, ";")
 ```
 
@@ -52,10 +59,12 @@ freqPais <- as.data.frame(table(motos$Pais.de.Proveniencia))
  
 freqPais <- as.data.frame(head(freqPais,10))
 
-ggplot(freqPais, aes(x=Var1, y=Freq)) +
-  geom_bar(stat = "identity") +  coord_flip() + xlab("País de origen")+ ylab("Frecuencia")+ scale_fill_grey()
-
-
+ggplot(freqPais, aes(x=Var1, y=Freq, fill = Var1)) +
+  geom_bar(stat = "identity") + 
+  coord_flip() + xlab("País de origen") + 
+  ylab("Frecuencia") +
+  theme(legend.position = "top") +
+  theme(legend.position = "none")
 ```
 
 Vemos que la mayoría de motos proviene de China con más de 600,000 importaciones en total, seguido por India. 
@@ -69,7 +78,10 @@ freqAnio <- as.data.frame(table(motos$Anio))
  
  
 
-ggplot(freqAnio, aes(x=Var1, y=Freq)) + geom_bar(stat = "identity") + xlab("Año de importación")+ ylab("Frecuencia")
+ggplot(freqAnio, aes(x=Var1, y=Freq, fill = Var1)) + 
+  geom_bar(stat = "identity") + xlab("Año de importación")+
+  ylab("Frecuencia") + theme(legend.position = "top") +
+  theme(legend.position = "none")
 
 
 ```
@@ -81,7 +93,10 @@ freqMarca <- as.data.frame(table(motos$Marca))
  freqMarca<- freqMarca[order(freqMarca$Freq, decreasing = TRUE),]
 freqMarca <- head(freqMarca,10)
 
-ggplot(freqMarca, aes(x=Var1, y=Freq)) + geom_bar(stat = "identity") +  coord_flip()+ xlab("Marca")+ ylab("Frecuencia")
+ggplot(freqMarca, aes(x=Var1, y=Freq, fill = Var1)) + geom_bar(stat = "identity") +  
+  coord_flip()+ xlab("Marca") + ylab("Frecuencia") +
+  theme(legend.position = "top") +
+  theme(legend.position = "none")
 
 
 ```
@@ -91,7 +106,10 @@ Dado que es una gran cantidad de marcas, solo analizamos las 10 que poseen mayor
  freqMarca<- freqMarca[order(freqMarca$Freq, decreasing = FALSE),]
 freqMarca <- head(freqMarca,20)
 
-ggplot(freqMarca, aes(x=Var1, y=Freq)) + geom_bar(stat = "identity") +  coord_flip()+ xlab("Marca")+ ylab("Frecuencia")
+ggplot(freqMarca, aes(x=Var1, y=Freq, fill=Var1)) + geom_bar(stat = "identity") +  
+  coord_flip()+ xlab("Marca")+ ylab("Frecuencia") +
+  theme(legend.position = "top") +
+  theme(legend.position = "none")
 
 
 ```
