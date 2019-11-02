@@ -130,7 +130,7 @@ corrplot(M, method = "color")
 
 ```
 
-Se nota que las variables Valor CIF Y el impuesto están altamente correlacionadas. Otro hecho importante es que no sen encuentra una anticorrelación entre ninguna de las variables. 
+Se nota que las variables Valor CIF Y el impuesto están altamente correlacionadas. Otro hecho importante es que no sen encuentra una anticorrelación entre ninguna de las variables. En conclusión no se hizo ningún análisis factoreal debido a las pocas variables que se tienen.
 ```{r}
 
 ```
