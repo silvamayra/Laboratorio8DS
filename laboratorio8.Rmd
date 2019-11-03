@@ -1,7 +1,9 @@
 ---
 title: "Laboratorio 8"
 author: "Grupo 6"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -36,7 +38,7 @@ Para este apartado, se descargaron los archivos directamente de internet y se co
 #C:/Users/Home/Documents/Tercer año/Sexto Semestre/Data Science/Laboratorio8DS
 #/Users/odalisrg/Downloads/datos
 #/Users/quiebres/Downloads/datos
-setwd("/Users/quiebres/Downloads/datos")
+setwd("/Users/odalisrg/Downloads/datos")
 dataset <- read.csv("importacionesVehiculosSAT.csv",TRUE, ";")
 accidentes <- read.csv("accidentesMotos.csv",TRUE, ",")
 ```
@@ -123,7 +125,8 @@ ggplot(freqMarca, aes(x=Var1, y=Freq, fill=Var1)) + geom_bar(stat = "identity") 
 ```
 Vemos que hay marcas que poseen una sola importación. Tiene sentido lo que encontramos, dado que estas marcas casi nunca se ven en el tránsito en Guatemala. 
 
-
+## Análisis de accidentes de motos
+El data solo proporcionaba información del año 2017 y 2018, por lo que se decidió utilizar esa información a pesar de ser pequeña ya que indica informaciéon reciente de los accidentes y lesiones de las motos. Vemos que la diferencia entre estos dos años no es mucha; sin embargo, sigue siendo una cantidad alta. 
 ```{r}
 freqAnioOcu <- as.data.frame(table(accidentes$Anio))
  freqAnioOcu<- freqAnioOcu[order(freqAnioOcu$Freq, decreasing = TRUE),]
@@ -140,6 +143,7 @@ ggplot(freqAnioOcu, aes(x=Var1, y=Freq, fill = Var1)) +
   theme(legend.position = "none")
 ```
 
+Asimismo, decidimos ver el sexo que más sufría de estos accidentes y vemos que los hombres sobrepasan esta proporción por más de 2,500 accidentes. Esto se puede deber a que la mayoría de hombres que trabajan no solo en la ciudad sino que en el interior se transporta por medio de motocicletas. Sin embargo, vemos que el uso de motocicletas por una mujer es demasiado pequeño, por cual muestra menos accidentes por año. 
 ```{r}
 freqSexo <- as.data.frame(table(accidentes$Sexo))
  freqSexo<- freqSexo[order(freqSexo$Freq, decreasing = TRUE),]
@@ -156,7 +160,7 @@ ggplot(freqSexo, aes(x=Var1, y=Freq, fill = Var1)) +
   theme(legend.position = "none")
 ```
 
-
+Se decidió representar la información anterior en forma de un pie chart para visualizar de mejor manera la proporción de accidentes.
 ```{r}
 freqSexo <- freqSexo %>% 
   arrange(desc(Var1)) %>%
@@ -198,7 +202,28 @@ corrplot(M, method = "color")
 
 Se nota que las variables Valor CIF Y el impuesto están altamente correlacionadas. Otro hecho importante es que no sen encuentra una anticorrelación entre ninguna de las variables. En conclusión no se hizo ningún análisis factoreal debido a las pocas variables que se tienen.
 ```{r}
+freqAnioOcu <- as.data.frame(table(accidentes$Anio))
+ freqAnioOcu<- freqAnioOcu[order(freqAnioOcu$Freq, decreasing = TRUE),]
+freqAnioOcu$prop <- freqAnioOcu$Freq/sum(freqAnioOcu$Freq)
+ 
+ 
 
+freqAnioOcu <- freqAnioOcu %>% 
+  arrange(desc(Var1)) %>%
+  mutate(prop = Freq / sum(freqAnioOcu$Freq) *100) %>%
+  mutate(ypos = cumsum(prop)- 0.5*prop )
+
+# Basic piechart
+ggplot(freqAnioOcu, aes(x="", y=prop, fill=Var1)) +
+  geom_bar(stat="identity", width=1, color="white") +
+  coord_polar("y", start=0) +
+  theme_void() + 
+  theme(legend.position="none") +
+  
+  geom_text(aes(y = ypos, label = Var1), color = "white", size=6) +
+  scale_fill_manual(values = c("#800000", "#A52A2A","#A0522D","#8B4513", 
+                               "#D2691E", "#CD853F","#B8860B","#DAA520",
+                               "#DEB887","#F5DEB3"))
 
 ```
 
