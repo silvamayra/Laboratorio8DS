@@ -80,7 +80,10 @@ freqAnio <- as.data.frame(table(motos$Anio))
 
 ggplot(freqAnio, aes(x=Var1, y=Freq, fill = Var1)) + 
   geom_bar(stat = "identity") + xlab("Año de importación")+
-  ylab("Frecuencia") + theme(legend.position = "top") +
+  ylab("Frecuencia") +
+  scale_fill_manual(values = c("#800000", "#A52A2A","#A0522D","#8B4513", 
+                               "#D2691E", "#CD853F","#B8860B","#DAA520",
+                               "#DEB887","#F5DEB3")) +
   theme(legend.position = "none")
 
 
@@ -95,7 +98,9 @@ freqMarca <- head(freqMarca,10)
 
 ggplot(freqMarca, aes(x=Var1, y=Freq, fill = Var1)) + geom_bar(stat = "identity") +  
   coord_flip()+ xlab("Marca") + ylab("Frecuencia") +
-  theme(legend.position = "top") +
+    scale_fill_manual(values = c("#800000", "#A52A2A", "#A0522D", 
+                               "#8B4513", "#D2691E","#CD853F",
+                               "#B8860B","#DAA520","#DEB887")) +
   theme(legend.position = "none")
 
 
